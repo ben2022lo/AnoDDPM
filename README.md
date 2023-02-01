@@ -28,6 +28,7 @@ a [python simplex noise library](https://github.com/lmas/opensimplex).
 - diffusion-training-images/ARGS={i}/ - detection images
 - metrics/ - storage of varying metrics
 - final-outputs/ - outputs from generate_images.py
+- temporal reconstruction result.png - toy example
 
 ## How To...
 
@@ -76,7 +77,7 @@ To evaluate a model, run `python3 detection.py ARG_NUM`, and ensure the script r
 }
 
 ## Temporal results
-A model trained in 10 epochs on 115 images give following unsatisfying result : temporal reconstruction result.png
+A model trained in 10 epochs on 115 images gives the following unsatisfying result : temporal reconstruction result.png
 
 ## Citation:
 
