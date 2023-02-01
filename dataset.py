@@ -8,6 +8,9 @@ import torch
 from matplotlib import animation
 from torch.utils.data import Dataset
 from torchvision import datasets, transforms
+import torch.utils.data as data
+from PIL import Image
+
 
 
 # helper function to make getting another batch of data easier
@@ -485,7 +488,7 @@ class DAGM(Dataset):
 
 
 class MVTec(Dataset):
-    def __init__(self, dir, anomalous=False, img_size=(256, 256), rgb=True, random_crop=True, include_good=False):
+    def __init__(self, dir, anomalous=False, img_size=(256, 256), rgb=False, random_crop=False, include_good=False):
         # dir = './DATASETS/leather'
 
         self.ROOT_DIR = dir
@@ -805,6 +808,65 @@ def load_CIFAR10(args, train=True):
             shuffle=True, batch_size=args["Batch_Size"], drop_last=True
             )
 
+
+
+IMG_EXTENSIONS = [
+    '.jpg', '.JPG', '.jpeg', '.JPEG',
+    '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP','.tiff','tif',
+]
+
+def is_image_file(filename):
+    return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
+
+def make_dataset(dir):
+    if os.path.isfile(dir):
+        images = [i for i in np.genfromtxt(dir, dtype=np.str, encoding='utf-8')]
+    else:
+        images = []
+        assert os.path.isdir(dir), '%s is not a valid directory' % dir
+        for root, _, fnames in sorted(os.walk(dir)):
+            for fname in sorted(fnames):
+                if is_image_file(fname):
+                    path = os.path.join(root, fname)
+                    images.append(path)
+
+    return images
+
+def pil_loader(path):
+    im = Image.open(path)
+    if im.mode=='RGBA':
+      res = im.convert('L')
+    else:
+      im16 = np.array(im)
+      im8 = (im16/256).astype('uint8')
+      res = Image.fromarray(im8)
+    return res
+
+class Satellite(data.Dataset):
+    def __init__(self, data_root, data_len=-1, image_size=[256, 256], loader=pil_loader):
+        imgs = make_dataset(data_root)
+        if data_len > 0:
+            self.imgs = imgs[:int(data_len)]
+        else:
+            self.imgs = imgs
+        self.tfs = transforms.Compose([
+                transforms.Resize((image_size[0], image_size[1])),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.5], std=[0.5])
+        ])
+        self.loader = loader
+        self.image_size = image_size
+
+    def __getitem__(self, index):
+        sample = {}
+        path = self.imgs[index]
+        img = self.tfs(self.loader(path))
+        sample['image'] = img
+        sample['filenames'] = path.rsplit("/")[-1].rsplit("\\")[-1]
+        return sample
+
+    def __len__(self):
+        return len(self.imgs)
 
 if __name__ == "__main__":
     # load_datasets_for_test()
