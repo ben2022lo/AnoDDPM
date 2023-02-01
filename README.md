@@ -1,6 +1,6 @@
 # AnoDDPM: Anomaly Detection with Denoising Diffusion Probabilistic Models using Simplex Noise
 
-This is an adaption of the official implementation of AnoDDPM.
+This is an adaption of the official implementation of AnoDDPM. We perform experience on [TenGeoP-SARwv (Wang Chen, 2018)](https://www.seanoe.org/data/00456/56796/) in order to detect oil spill
 
 The original code was written by [Julian Wyatt](https://github.com/Julian-Wyatt) and is based off
 the [Guided Diffusion Repo](https://github.com/openai/guided-diffusion) and a fork of
@@ -72,7 +72,7 @@ To evaluate a model, run `python3 detection.py ARG_NUM`, and ensure the script r
 "num_heads":2,
 "num_head_channels":-1,
 "noise_fn":"simplex",
-"dataset": "mri"
+"dataset": "satelitte"
 }
 
 ## Citation:
