@@ -42,7 +42,7 @@ you're running.
 ### Train
 
 To train a model, run `python3 diffusion_training.py ARG_NUM` where `ARG_NUM` is the number relating to the json arg
-file. These arguments are stored in ./test_args/ and are called args1.json for example.
+file. These arguments are stored in ./test_args/ and the file args1.json was used. One can modify this file to personalize the training and outpus.
 
 ### Evaluate
 
