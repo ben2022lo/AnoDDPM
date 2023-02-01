@@ -32,6 +32,11 @@ a [python simplex noise library](https://github.com/lmas/opensimplex).
 
 ## How To...
 
+To use the code in google colab
+`
+%cd /content/
+!git clone https://github.com/ben2022lo/AnoDDPM.git
+`
 
 ### Datasets
 
