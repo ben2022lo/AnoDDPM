@@ -1,28 +1,11 @@
 # AnoDDPM: Anomaly Detection with Denoising Diffusion Probabilistic Models using Simplex Noise
 
-This is the github repository for an anomaly detection approach utilising DDPMs with simplex noise implemented in
-pytorch.
+This is an adaption of the official implementation of AnoDDPM.
 
-The code was written by [Julian Wyatt](https://github.com/Julian-Wyatt) and is based off
+The original code was written by [Julian Wyatt](https://github.com/Julian-Wyatt) and is based off
 the [Guided Diffusion Repo](https://github.com/openai/guided-diffusion) and a fork of
 a [python simplex noise library](https://github.com/lmas/opensimplex).
 
-The project was accepted at the CVPR Workshop: NTIRE 2022: [Project](https://julianwyatt.co.uk/anoddpm)
-| [Paper](https://openaccess.thecvf.com/content/CVPR2022W/NTIRE/html/Wyatt_AnoDDPM_Anomaly_Detection_With_Denoising_Diffusion_Probabilistic_Models_Using_Simplex_CVPRW_2022_paper.html)
-
-## Simplex noise examples
-
-<p align="center">
-  <img alt="gif 1" src="https://github.com/Julian-Wyatt/JulianWyatt.github.io/blob/db50a67bec8aece87e185260572ece35d74b74df/assets/img/portfolio/anoddpm2-compressed.gif" width="45%">
-&nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="gif 2" src="https://github.com/Julian-Wyatt/JulianWyatt.github.io/blob/db50a67bec8aece87e185260572ece35d74b74df/assets/img/portfolio/anoddpm3-compressed.gif" width="45%">
-</p>
-
-## Gaussian noise example
-
-<p align="center">
-  <img src='https://github.com/Julian-Wyatt/JulianWyatt.github.io/blob/db50a67bec8aece87e185260572ece35d74b74df/assets/img/portfolio/anoddpmGauss.gif' width=45%>
-</p>
 
 ## File structure:
 
@@ -46,9 +29,14 @@ The project was accepted at the CVPR Workshop: NTIRE 2022: [Project](https://jul
 - metrics/ - storage of varying metrics
 - final-outputs/ - outputs from generate_images.py
 
-For access to checkpoints, please get in touch. For access to datasets, please refer to the paper's citations.
-
 ## How To...
+
+
+### Datasets
+
+The images for training should be stored in `./DATASETS/Satellite/`, and for testing `./DATASETS/Anormalie/`
+To add a new dataset, edit the `dataset.py` file and ensure the new dataset is loaded via the script
+you're running.
 
 ### Train
 
@@ -59,20 +47,13 @@ file. These arguments are stored in ./test_args/ and are called args1.json for e
 
 To evaluate a model, run `python3 detection.py ARG_NUM`, and ensure the script runs the correct sub function.
 
-### Datasets
-
-To perform the same tests, store the anomalous dataset
-in `./DATASETS/CancerousDataset/EdinburghDataset/Anomalous-T1/raw` and the training dataset in
-`./DATASETS/Train/`. The training dataset contained 100 folders where each contained the raw file and the numpy
-extracted file. To add a new dataset, edit the `dataset.py` file and ensure the new dataset is loaded via the script
-you're running.
 
 ## Example args:
 
 {
 "img_size": [256,256],
 "Batch_Size": 1,
-"EPOCHS": 3000,
+"EPOCHS": 10,
 "T": 1000,
 "base_channels": 128,
 "beta_schedule": "linear",
@@ -84,7 +65,7 @@ you're running.
 "random_slice": true,
 "sample_distance": 800,
 "weight_decay": 0.0,
-"save_imgs":false,
+"save_imgs":true,
 "save_vids":true,
 "dropout":0,
 "attention_resolutions":"16,8",
