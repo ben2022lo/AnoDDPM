@@ -75,6 +75,9 @@ To evaluate a model, run `python3 detection.py ARG_NUM`, and ensure the script r
 "dataset": "satelitte"
 }
 
+## Temporal results
+A model trained in 10 epochs on 115 images give following unsatisfying result : temporal reconstruction result.png
+
 ## Citation:
 
 If you use this code for your research, please cite:<br>
