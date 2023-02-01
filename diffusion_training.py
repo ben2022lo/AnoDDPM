@@ -331,6 +331,16 @@ def main():
                 False
                 )
         testing_dataset_loader = dataset.init_dataset_loader(testing_dataset, args)
+        
+    elif args["dataset"].lower() == "satellite":
+        training_dataset = dataset.Satellite(
+                "./DATASETS/Satellite")
+        training_dataset_loader = dataset.init_dataset_loader(training_dataset, args)
+        testing_dataset = dataset.Satellite(
+                "./DATASETS/Anormalie"
+                )
+        testing_dataset_loader = dataset.init_dataset_loader(testing_dataset, args)
+
     elif args["dataset"].lower() == "leather":
         if in_channels == 3:
             training_dataset = dataset.MVTec(
