@@ -107,7 +107,7 @@ def train(training_dataset_loader, testing_dataset_loader, args, resume):
             update_ema_params(ema, model)
             mean_loss.append(loss.data.cpu())
 
-            if epoch > 0 and i == 0:
+            if epoch % 50 == 0 and i == 0:
                 row_size = min(8, args['Batch_Size'])
                 training_outputs(
                         diffusion, x, est, noisy, epoch, row_size, save_imgs=args['save_imgs'],
@@ -145,7 +145,7 @@ def train(training_dataset_loader, testing_dataset_loader, args, resume):
             #             f"{((time_taken / 3600) % 1) * 60:02.0f}, est time remaining: {hours}:{mins:02.0f}\r"
             #             )
 
-        if epoch % 1000 == 0 and epoch >= 0:
+        if epoch % 50 == 0 and epoch >= 0:
             save(unet=model, args=args, optimiser=optimiser, final=False, ema=ema, epoch=epoch)
 
     save(unet=model, args=args, optimiser=optimiser, final=True, ema=ema)
@@ -209,7 +209,7 @@ def training_outputs(diffusion, x, est, noisy, epoch, row_size, ema, args, save_
     except OSError:
         pass
     if save_imgs:
-        if epoch > 0:
+        if epoch % 50 == 0:
             # for a given t, output x_0, & prediction of x_(t-1), and x_0
             noise = torch.rand_like(x)
             t = torch.randint(0, diffusion.num_timesteps, (x.shape[0],), device=x.device)
@@ -235,7 +235,7 @@ def training_outputs(diffusion, x, est, noisy, epoch, row_size, ema, args, save_
         plt.clf()
     if save_vids:
         fig, ax = plt.subplots()
-        if epoch > 0:
+        if epoch % 50 == 0:
             plt.rcParams['figure.dpi'] = 200
             if epoch % 1000 == 0:
                 out = diffusion.forward_backward(ema, x, "half", args['sample_distance'] // 2, denoise_fn="noise_fn")
