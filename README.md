@@ -47,12 +47,11 @@ you're running.
 ### Train
 
 To train a model, run `python3 diffusion_training.py ARG_NUM` where `ARG_NUM` is the number relating to the json arg
-file. These arguments are stored in ./test_args/ and the file args1.json was used. One can modify this file to personalize the training and outpus.
+file. These arguments are stored in ./test_args/ and the file args1.json was used for satellite images. One can modify this file to personalize the training and outpus.
 
-### Evaluate
+### Evaluate 
 
-To evaluate a model, run `python3 detection.py ARG_NUM`, and ensure the script runs the correct sub function.
-
+To evaluate a model, run `python3 detection.py ARG_NUM`, and ensure the script runs the correct sub function. It's not interesting for now, because a well-trained model's checkpoint is needed for detection.
 
 ## Example args:
 
